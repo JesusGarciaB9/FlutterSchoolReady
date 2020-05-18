@@ -13,30 +13,30 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Signup"),
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 19.3137085),
           child: Column(
             children: <Widget>[
+              SizedBox(height: 32.3606798,),
               account(nameController),
               password(passController),
               email(emailController),
-              Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: RaisedButton(
-                  onPressed: () async {
-                    String nombre = nameController.text.trim();
-                    String passw = passController.text.trim();
-                    String email = emailController.text.trim();
-                 var value = await signUp(nombre, passw, email, nombre);
+              SizedBox(height:48.2842712),
+              RaisedButton(
+                onPressed: () async {
+                  String nombre = nameController.text.trim();
+                  String passw = passController.text.trim();
+                  String email = emailController.text.trim();
+               var value = await signUp(nombre, passw, email, nombre);
              
-                    Navigator.pop(context);
-                  },
-                  child: Text('Crear Cuenta'),
-                ),
+                  Navigator.pop(context);
+                },
+                child: Text('Crear Cuenta'),
               ),
             ],
           ),

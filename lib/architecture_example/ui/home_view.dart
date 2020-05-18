@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:f_202010_provider_get_it/architecture_example/models/course.dart';
 
 class CourseListView extends StatelessWidget {
-   
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeModel>(
@@ -32,29 +31,28 @@ class CourseListView extends StatelessWidget {
                 : Center(
                     child: model.courses == null
                         ? Text('No data')
-                        : _list(model,context),
+                        : _list(model, context),
                     //Column(
-                     //       crossAxisAlignment: CrossAxisAlignment.stretch,
-                     //       children: <Widget>[
-                     //         Center(child: Text('${model.courses.length}')),
-                     //         FlatButton(
-                     //             child: Text('get Detail'),
-                     //             onPressed: () =>
-                     //                 getDetail(context, model.courses[0].id))
-                   //         ],
+                    //       crossAxisAlignment: CrossAxisAlignment.stretch,
+                    //       children: <Widget>[
+                    //         Center(child: Text('${model.courses.length}')),
+                    //         FlatButton(
+                    //             child: Text('get Detail'),
+                    //             onPressed: () =>
+                    //                 getDetail(context, model.courses[0].id))
+                    //         ],
                     //      )
-                          )
-                          )
-                          );
+                  )));
   }
 
   void getData(BuildContext context, HomeModel model) async {
-    model.getCourses(Provider.of<AuthProvider>(context).username,
-        Provider.of<AuthProvider>(context).token)
+    model
+        .getCourses(Provider.of<AuthProvider>(context).username,
+            Provider.of<AuthProvider>(context).token)
         .catchError((error) async {
-          print("getCourses got error: " + error);
-          await _buildDialog(context, 'Alert', 'Need to login');
-          Provider.of<AuthProvider>(context, listen: false).setLogOut();
+      print("getCourses got error: " + error);
+      await _buildDialog(context, 'Alert', 'Need to login');
+      Provider.of<AuthProvider>(context, listen: false).setLogOut();
     });
   }
 
@@ -64,65 +62,49 @@ class CourseListView extends StatelessWidget {
           builder: (context) => CourseDetailView(courseId: courseId)),
     );
   }
-  
-  
-  Widget _list(model,context) {
-    
+
+  Widget _list(model, context) {
     return ListView.builder(
-      
       itemCount: model.courses.length,
       itemBuilder: (context, posicion) {
         var element = model.courses[posicion];
-        return _item(element, posicion,context);
+        return _item(element, posicion, context);
       },
     );
   }
 
-  Widget _item(Course element, int posicion,context) {
+  Widget _item(Course element, int posicion, context) {
     return Dismissible(
       key: UniqueKey(),
       child: Container(
-        margin: EdgeInsets.only(top: 10.0),
+        margin: EdgeInsets.only(bottom: 8.0),
         padding: EdgeInsets.all(20.0),
-        color:   Colors.green[100],
+        color: Theme.of(context).backgroundColor,
         child: Column(
- 
           children: <Widget>[
             Row(
-              
               children: <Widget>[
-                
-            
                 Container(
-                  padding: EdgeInsets.only( top: 20,bottom: 10),
+                  padding: EdgeInsets.only(top: 20, bottom: 10),
                   child: Icon(
                     Icons.work,
                     size: 48.0,
                     color: Colors.grey,
                   ),
                 ),
-                
-               Container(
+                Container(
                   child: Container(
                     width: 120,
                     margin: EdgeInsets.all(10),
-                  
                     child: Text(element.name),
-                      
                   ),
                 ),
-               
-                 FlatButton(
-                                  child: Text('ver curso'),        
-                                  onPressed: () =>
-                                      getDetail(context,element.id)
-                                      ),         
-                                      
-                                             
-                Spacer(), 
+                FlatButton(
+                    child: Text('ver curso'),
+                    onPressed: () => getDetail(context, element.id)),
+                Spacer(),
               ],
             ),
- 
           ],
         ),
       ),

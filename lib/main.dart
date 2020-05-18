@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'ProviderGeit',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.red,
+            brightness: Brightness.dark,
+            buttonColor: Colors.deepOrange,
           ),
           home: Central(),
         ));
